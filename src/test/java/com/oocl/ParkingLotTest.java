@@ -10,14 +10,14 @@ public class ParkingLotTest {
 //    public ExpectedException expectedException = "";
     public ExpectedException expectedException = ExpectedException.none();
     @Test
-    public void should_return_parking_ticket_when_parked_a_car() {
+    public void should_return_parking_ticket_when_parked_a_car() throws NotEnoughPositionException {
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket parkingTicket = parkingLot.park(new Car());
         Assert.assertNotNull(parkingTicket);
     }
 
     @Test
-    public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
+    public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket() throws UnrecognizedParkingTicketException, PleaseProvideTickerException, NotEnoughPositionException {
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot.park(car);
@@ -27,7 +27,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_not_return_car_when_ticket_is_used() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
+    public void should_not_return_car_when_ticket_is_used() throws UnrecognizedParkingTicketException, PleaseProvideTickerException, NotEnoughPositionException {
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket parkingTicket = parkingLot.park(new Car());
 
@@ -35,8 +35,9 @@ public class ParkingLotTest {
         Assert.assertNull(car);
     }
 
+    /** Replaced by new test case should_return_exception_when_parking_lot_is_full() */
     @Test
-    public void should_not_park_car_when_parking_lot_is_full() {
+    public void should_not_park_car_when_parking_lot_is_full() throws NotEnoughPositionException {
         ParkingLot parkingLot = new ParkingLot(1);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
         parkingBoy.park(new Car());
@@ -46,7 +47,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_park_car_to_parking_lot() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
+    public void should_park_car_to_parking_lot() throws UnrecognizedParkingTicketException, PleaseProvideTickerException, NotEnoughPositionException {
         ParkingLot parkingLot = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
 
@@ -58,7 +59,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_exception_when_fetch_with_incorrect_ticket() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
+    public void should_return_exception_when_fetch_with_incorrect_ticket() throws UnrecognizedParkingTicketException, PleaseProvideTickerException, NotEnoughPositionException {
         expectedException.expect(UnrecognizedParkingTicketException.class);
         expectedException.expectMessage("Unrecognized parking ticket.");
         ParkingLot parkingLot = new ParkingLot();
@@ -70,7 +71,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_exception_when_fetch_without_ticket() throws PleaseProvideTickerException, UnrecognizedParkingTicketException {
+    public void should_return_exception_when_fetch_without_ticket() throws PleaseProvideTickerException, UnrecognizedParkingTicketException, NotEnoughPositionException {
         expectedException.expect(PleaseProvideTickerException.class);
         expectedException.expectMessage("Please provide your parking ticket.");
         ParkingLot parkingLot = new ParkingLot();
@@ -79,5 +80,16 @@ public class ParkingLotTest {
 
         ParkingTicket parkingTicket = parkingBoy.park(car);
         parkingBoy.fetch(null);
+    }
+
+    @Test
+    public void should_return_exception_when_parking_lot_is_full() throws NotEnoughPositionException {
+        expectedException.expect(NotEnoughPositionException.class);
+        expectedException.expectMessage("Not enough position.");
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        parkingBoy.park(new Car());
+
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
     }
 }

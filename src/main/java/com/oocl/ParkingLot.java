@@ -16,10 +16,11 @@ public class ParkingLot {
         setCapacity(10);
     }
 
-    public ParkingTicket park(Car car) {
+    public ParkingTicket park(Car car) throws NotEnoughPositionException {
         boolean isFull = isFull();
         if(isFull){
-            return null;
+            throw new NotEnoughPositionException();
+//            return null;
         }
         ParkingTicket parkingTicket = new ParkingTicket();
         this.parkingTicketCarMap.put(parkingTicket, car);
