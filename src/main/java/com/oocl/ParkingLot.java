@@ -38,7 +38,7 @@ public class ParkingLot {
         return car;
     }
 
-    private boolean isFull() {
+    public boolean isFull() {
         return this.getCapacity() <= parkingTicketCarMap.size();
     }
 
