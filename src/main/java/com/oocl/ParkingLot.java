@@ -17,7 +17,7 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        boolean isFull = this.getCapacity() <= parkingTicketCarMap.size();
+        boolean isFull = isFull();
         if(isFull){
             return null;
         }
@@ -26,12 +26,19 @@ public class ParkingLot {
         return parkingTicket;
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException {
+    public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
+        if(parkingTicket == null) {
+            throw new PleaseProvideTickerException();
+        }
         if(!this.parkingTicketCarMap.containsKey(parkingTicket)){
             throw new UnrecognizedParkingTicketException();
         }
         Car car = this.parkingTicketCarMap.remove(parkingTicket);
         return car;
+    }
+
+    private boolean isFull() {
+        return this.getCapacity() <= parkingTicketCarMap.size();
     }
 
     public void setCapacity(int capacity) {

@@ -17,7 +17,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket() throws UnrecognizedParkingTicketException {
+    public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot.park(car);
@@ -27,7 +27,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_not_return_car_when_ticket_is_used() throws UnrecognizedParkingTicketException {
+    public void should_not_return_car_when_ticket_is_used() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket parkingTicket = parkingLot.park(new Car());
 
@@ -46,7 +46,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_park_car_to_parking_lot() throws UnrecognizedParkingTicketException {
+    public void should_park_car_to_parking_lot() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
         ParkingLot parkingLot = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
 
@@ -58,7 +58,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_exception_when_fetch_with_incorrect_ticket() throws UnrecognizedParkingTicketException {
+    public void should_return_exception_when_fetch_with_incorrect_ticket() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
         expectedException.expect(UnrecognizedParkingTicketException.class);
         expectedException.expectMessage("Unrecognized parking ticket.");
         ParkingLot parkingLot = new ParkingLot();
@@ -67,5 +67,17 @@ public class ParkingLotTest {
 
         ParkingTicket parkingTicket = parkingBoy.park(car);
         parkingBoy.fetch(new ParkingTicket());
+    }
+
+    @Test
+    public void should_return_exception_when_fetch_without_ticket() throws PleaseProvideTickerException, UnrecognizedParkingTicketException {
+        expectedException.expect(PleaseProvideTickerException.class);
+        expectedException.expectMessage("Please provide your parking ticket.");
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car car = new Car();
+
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.fetch(null);
     }
 }
