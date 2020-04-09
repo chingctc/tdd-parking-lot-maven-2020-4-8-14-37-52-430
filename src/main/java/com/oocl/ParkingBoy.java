@@ -10,4 +10,8 @@ public class ParkingBoy {
         this.parkingTicketCarMap.put(parkingTicket, car);
         return parkingTicket;
     }
+
+    public Car fetch(ParkingTicket parkingTicket) {
+        return this.parkingTicketCarMap.get(parkingTicket);
+    }
 }
