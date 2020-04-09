@@ -12,6 +12,7 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
+        Car car = this.parkingTicketCarMap.remove(parkingTicket);
         return this.parkingTicketCarMap.get(parkingTicket);
     }
 }
