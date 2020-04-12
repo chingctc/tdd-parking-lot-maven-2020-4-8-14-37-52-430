@@ -1,12 +1,10 @@
 package com.oocl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ParkingBoy {
-    protected final ArrayList<ParkingLot> parkingLots;
-    private ParkingLot parkingLot;
+    private List<ParkingLot> parkingLots = new ArrayList<>();
 
     public ParkingBoy(ArrayList<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
@@ -20,14 +18,32 @@ public class ParkingBoy {
         }
         return null;
     }
-
-    public ParkingTicket park(Car car) throws NotEnoughPositionException{
-        ParkingLot selectedParkingLot = this.parkingLots.stream().filter(parkingLot -> !parkingLot.isFull()).findFirst().get();
-        return selectedParkingLot.park(car);
+    public ParkingTicket park(Car car) throws NotEnoughPositionException {
+        ParkingLot parkingLot=getAvailableParkingLot();
+        if(parkingLot==null){
+            throw new NotEnoughPositionException();
+        }else {
+            ParkingTicket parkingTicket = parkingLot.park(car);
+            if (parkingTicket == null) {
+                throw new NotEnoughPositionException();
+            }
+            return parkingTicket;
+        }
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
-        return this.parkingLots.get(0).fetch(parkingTicket);
+    public Car fetch(ParkingTicket parkingTicket) throws PleaseProvideTickerException, UnrecognizedParkingTicketException {
+        if(parkingTicket==null){
+            throw new PleaseProvideTickerException();
+        }
+        ParkingLot parkingLot=parkingTicket.getParkingLot();
+        if(!parkingLots.contains(parkingLot)){;
+            throw new UnrecognizedParkingTicketException();
+        }
+        Car fetchedCar=parkingLot.fetch(parkingTicket);
+        if(fetchedCar==null) {
+            return null;
+        }
+        return fetchedCar;
     }
 
 }
