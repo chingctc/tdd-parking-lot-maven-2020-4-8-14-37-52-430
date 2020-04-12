@@ -133,4 +133,24 @@ public class ParkingLotTest {
 
         Assert.assertEquals(car1, fetchedCar);
     }
+
+    @Test
+    public void should_manager_specify_parking_boy_to_park_and_fetch_a_car() throws PleaseProvideTickerException, UnrecognizedParkingTicketException, NotEnoughPositionException {
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(1);
+        ParkingLot parkingLot2 = new ParkingLot();
+        ArrayList<ParkingLot> parkingLots=new ArrayList<>();
+        parkingLots.add(parkingLot1);
+        parkingLots.add(parkingLot2);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ArrayList<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(parkingBoy);
+        ParkingManager parkingManager = new ParkingManager(new ArrayList<ParkingLot>(),parkingBoys);
+
+        ParkingTicket parkingTicket = parkingManager.parkCarByParkingBoy(parkingBoy,car);
+        Car fetchedCar = parkingManager.fetchCarByParkingBoy(parkingBoy,parkingTicket);
+
+        Assert.assertEquals(car,fetchedCar);
+
+    }
 }
