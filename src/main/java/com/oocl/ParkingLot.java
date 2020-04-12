@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class ParkingLot {
     public static final int CAPACITY = 10;
+    public static final int NO_MORE_PARKING_SPACE = 0;
     private final int capacity;
     private Map<ParkingTicket, Car> parkingTicketCarMap = new HashMap<>();
 
@@ -25,7 +26,7 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) throws NotEnoughPositionException {
-        if (getAvailableParkingPosition() == 0) {
+        if (getAvailableParkingPosition() == NO_MORE_PARKING_SPACE) {
             throw new NotEnoughPositionException();
         } else {
             ParkingTicket parkingTicket = new ParkingTicket(this);

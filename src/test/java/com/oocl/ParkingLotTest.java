@@ -6,11 +6,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;
 
 public class ParkingLotTest {
     @Rule
-//    public ExpectedException expectedException = "";
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test

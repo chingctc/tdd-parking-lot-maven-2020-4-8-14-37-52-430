@@ -4,25 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingBoy {
-    protected List<ParkingLot> parkingLots = new ArrayList<>();
+    public static final int NO_MORE_PARKING_SPACE = 0;
+    protected List<ParkingLot> parkingLots;
 
     public ParkingBoy(ArrayList<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
-    public ParkingLot getAvailableParkingLot(){
-        for(ParkingLot parkingLot:parkingLots){
-            if(parkingLot.getAvailableParkingPosition()>0){
+    public ParkingLot getAvailableParkingLot() {
+        for (ParkingLot parkingLot : parkingLots) {
+            if (parkingLot.getAvailableParkingPosition() > NO_MORE_PARKING_SPACE) {
                 return parkingLot;
             }
         }
         return null;
     }
+
     public ParkingTicket park(Car car) throws NotEnoughPositionException {
-        ParkingLot parkingLot=getAvailableParkingLot();
-        if(parkingLot==null){
+        ParkingLot parkingLot = getAvailableParkingLot();
+        if (parkingLot == null) {
             throw new NotEnoughPositionException();
-        }else {
+        } else {
             ParkingTicket parkingTicket = parkingLot.park(car);
             if (parkingTicket == null) {
                 throw new NotEnoughPositionException();
@@ -32,15 +34,15 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket) throws PleaseProvideTickerException, UnrecognizedParkingTicketException {
-        if(parkingTicket==null){
+        if (parkingTicket == null) {
             throw new PleaseProvideTickerException();
         }
-        ParkingLot parkingLot=parkingTicket.getParkingLot();
-        if(!parkingLots.contains(parkingLot)){;
+        ParkingLot parkingLot = parkingTicket.getParkingLot();
+        if (!parkingLots.contains(parkingLot)) {
             throw new UnrecognizedParkingTicketException();
         }
-        Car fetchedCar=parkingLot.fetch(parkingTicket);
-        if(fetchedCar==null) {
+        Car fetchedCar = parkingLot.fetch(parkingTicket);
+        if (fetchedCar == null) {
             return null;
         }
         return fetchedCar;
