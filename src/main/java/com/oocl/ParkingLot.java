@@ -21,24 +21,24 @@ public class ParkingLot {
     }
 
     public float getAvailableParkingPositionRate() {
-        return (float)getAvailableParkingPosition()/capacity;
+        return (float) getAvailableParkingPosition() / capacity;
     }
 
     public ParkingTicket park(Car car) throws NotEnoughPositionException {
-        if(getAvailableParkingPosition() == 0){
+        if (getAvailableParkingPosition() == 0) {
             throw new NotEnoughPositionException();
-        }else {
-            ParkingTicket parkingTicket= new ParkingTicket(this);
+        } else {
+            ParkingTicket parkingTicket = new ParkingTicket(this);
             parkingTicketCarMap.put(parkingTicket, car);
             return parkingTicket;
         }
     }
 
     public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
-        if(parkingTicket == null) {
+        if (parkingTicket == null) {
             throw new PleaseProvideTickerException();
         }
-        if(!this.parkingTicketCarMap.containsKey(parkingTicket)){
+        if (!this.parkingTicketCarMap.containsKey(parkingTicket)) {
             throw new UnrecognizedParkingTicketException();
         }
         Car fetchedCar = parkingTicketCarMap.get(parkingTicket);

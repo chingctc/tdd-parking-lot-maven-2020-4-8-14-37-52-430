@@ -2,18 +2,18 @@ package com.oocl;
 
 import java.util.ArrayList;
 
-public class SmartParkingBoy extends ParkingBoy {
-    public SmartParkingBoy(ArrayList<ParkingLot> parkingLots) {
+public class SuperSmartParkingBoy extends ParkingBoy {
+    public SuperSmartParkingBoy(ArrayList<ParkingLot> parkingLots) {
         super(parkingLots);
     }
 
     @Override
     public ParkingLot getAvailableParkingLot() {
         ParkingLot availParkingLot = null;
-        int availableSpace = 0;
+        float availableSpaceRate = 0;
         for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.getAvailableParkingPosition() > availableSpace) {
-                availableSpace = parkingLot.getAvailableParkingPosition();
+            if (parkingLot.getAvailableParkingPositionRate() > availableSpaceRate) {
+                availableSpaceRate = parkingLot.getAvailableParkingPositionRate();
                 availParkingLot = parkingLot;
             }
         }
