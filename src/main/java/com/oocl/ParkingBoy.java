@@ -24,13 +24,12 @@ public class ParkingBoy {
         ParkingLot parkingLot = getAvailableParkingLot();
         if (parkingLot == null) {
             throw new NotEnoughPositionException();
-        } else {
-            ParkingTicket parkingTicket = parkingLot.park(car);
-            if (parkingTicket == null) {
-                throw new NotEnoughPositionException();
-            }
-            return parkingTicket;
         }
+        ParkingTicket parkingTicket = parkingLot.park(car);
+        if (parkingTicket == null) {
+            throw new NotEnoughPositionException();
+        }
+        return parkingTicket;
     }
 
     public Car fetch(ParkingTicket parkingTicket) throws NoProvidedTicketException, UnrecognizedParkingTicketException {

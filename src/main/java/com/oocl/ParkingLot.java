@@ -28,11 +28,10 @@ public class ParkingLot {
     public ParkingTicket park(Car car) throws NotEnoughPositionException {
         if (getAvailableParkingPosition() == NO_MORE_PARKING_SPACE) {
             throw new NotEnoughPositionException();
-        } else {
-            ParkingTicket parkingTicket = new ParkingTicket(this);
-            parkingTicketCarMap.put(parkingTicket, car);
-            return parkingTicket;
         }
+        ParkingTicket parkingTicket = new ParkingTicket(this);
+        parkingTicketCarMap.put(parkingTicket, car);
+        return parkingTicket;
     }
 
     public Car fetch(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, NoProvidedTicketException {
