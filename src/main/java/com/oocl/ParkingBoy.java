@@ -32,9 +32,9 @@ public class ParkingBoy {
         return parkingTicket;
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws NoProvidedTicketException, UnrecognizedParkingTicketException {
+    public Car fetch(ParkingTicket parkingTicket) throws NoTicketProvidedException, UnrecognizedParkingTicketException {
         if (parkingTicket == null) {
-            throw new NoProvidedTicketException();
+            throw new NoTicketProvidedException();
         }
         ParkingLot parkingLot = parkingTicket.getParkingLot();
         if (!parkingLots.contains(parkingLot)) {

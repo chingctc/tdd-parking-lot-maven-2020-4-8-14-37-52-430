@@ -19,7 +19,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket() throws UnrecognizedParkingTicketException, NoProvidedTicketException, NotEnoughPositionException {
+    public void should_return_car_when_parking_boy_fetch_car_with_parking_ticket() throws UnrecognizedParkingTicketException, NoTicketProvidedException, NotEnoughPositionException {
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot.park(car);
@@ -32,9 +32,8 @@ public class ParkingLotTest {
     public void should_not_park_car_when_parking_lot_is_full() throws NotEnoughPositionException {
         expectedException.expect(NotEnoughPositionException.class);
         expectedException.expectMessage("Not enough position.");
-        ParkingLot parkingLot = new ParkingLot(1);
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
-        parkingLots.add(parkingLot);
+        parkingLots.add(new ParkingLot(1));
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
         parkingBoy.park(new Car());
 
@@ -43,35 +42,32 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_exception_when_fetch_with_incorrect_ticket() throws UnrecognizedParkingTicketException, NoProvidedTicketException, NotEnoughPositionException {
+    public void should_return_exception_when_fetch_with_incorrect_ticket() throws UnrecognizedParkingTicketException, NoTicketProvidedException, NotEnoughPositionException {
         expectedException.expect(UnrecognizedParkingTicketException.class);
         expectedException.expectMessage("Unrecognized parking ticket.");
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
-        Car car = new Car();
 
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
         parkingBoy.fetch(new ParkingTicket(parkingLot));
     }
 
     @Test
-    public void should_return_exception_when_fetch_without_ticket() throws NoProvidedTicketException, UnrecognizedParkingTicketException, NotEnoughPositionException {
-        expectedException.expect(NoProvidedTicketException.class);
+    public void should_return_exception_when_fetch_without_ticket() throws NoTicketProvidedException, UnrecognizedParkingTicketException, NotEnoughPositionException {
+        expectedException.expect(NoTicketProvidedException.class);
         expectedException.expectMessage("Please provide your parking ticket.");
-        ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
-        parkingLots.add(parkingLot);
+        parkingLots.add(new ParkingLot());
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
-        Car car = new Car();
 
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
         parkingBoy.fetch(null);
     }
 
     @Test
-    public void should_park_car_to_second_parking_lot_when_first_parking_lot_is_full() throws NotEnoughPositionException, NoProvidedTicketException, UnrecognizedParkingTicketException {
+    public void should_park_car_to_second_parking_lot_when_first_parking_lot_is_full() throws NotEnoughPositionException, NoTicketProvidedException, UnrecognizedParkingTicketException {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();

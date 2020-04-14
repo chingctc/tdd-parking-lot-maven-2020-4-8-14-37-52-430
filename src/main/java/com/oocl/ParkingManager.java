@@ -3,7 +3,6 @@ package com.oocl;
 import java.util.ArrayList;
 
 public class ParkingManager extends ParkingBoy {
-
     private final ArrayList<ParkingBoy> parkingBoys;
 
     public ParkingManager(ArrayList<ParkingLot> parkingLots, ArrayList<ParkingBoy> parkingBoys) {
@@ -15,7 +14,7 @@ public class ParkingManager extends ParkingBoy {
         return parkingBoy.park(car);
     }
 
-    public Car fetchCarByParkingBoy(ParkingBoy parkingBoy, ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, NoProvidedTicketException {
+    public Car fetchCarByParkingBoy(ParkingBoy parkingBoy, ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, NoTicketProvidedException {
         return parkingBoy.fetch(parkingTicket);
     }
 }
