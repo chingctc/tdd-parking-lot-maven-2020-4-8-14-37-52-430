@@ -33,9 +33,9 @@ public class ParkingBoy {
         }
     }
 
-    public Car fetch(ParkingTicket parkingTicket) throws PleaseProvideTickerException, UnrecognizedParkingTicketException {
+    public Car fetch(ParkingTicket parkingTicket) throws NoProvidedTicketException, UnrecognizedParkingTicketException {
         if (parkingTicket == null) {
-            throw new PleaseProvideTickerException();
+            throw new NoProvidedTicketException();
         }
         ParkingLot parkingLot = parkingTicket.getParkingLot();
         if (!parkingLots.contains(parkingLot)) {

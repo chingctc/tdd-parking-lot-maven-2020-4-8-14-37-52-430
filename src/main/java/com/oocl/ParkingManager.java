@@ -15,7 +15,7 @@ public class ParkingManager extends ParkingBoy {
         return parkingBoy.park(car);
     }
 
-    public Car fetchCarByParkingBoy(ParkingBoy parkingBoy, ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
+    public Car fetchCarByParkingBoy(ParkingBoy parkingBoy, ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException, NoProvidedTicketException {
         return parkingBoy.fetch(parkingTicket);
     }
 }

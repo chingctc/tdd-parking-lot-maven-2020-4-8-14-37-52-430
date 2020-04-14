@@ -7,14 +7,12 @@ import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 public class ParkingManagerTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void should_manager_specify_parking_boy_to_park_and_fetch_a_car() throws PleaseProvideTickerException, UnrecognizedParkingTicketException, NotEnoughPositionException {
+    public void should_manager_specify_parking_boy_to_park_and_fetch_a_car() throws NoProvidedTicketException, UnrecognizedParkingTicketException, NotEnoughPositionException {
         Car car = new Car();
         ParkingLot parkingLot1 = new ParkingLot(1);
         ParkingLot parkingLot2 = new ParkingLot();
@@ -33,7 +31,7 @@ public class ParkingManagerTest {
     }
 
     @Test
-    public void should_manager_park_a_car_to_a_parking_lot_with_enough_space() throws NotEnoughPositionException, UnrecognizedParkingTicketException, PleaseProvideTickerException {
+    public void should_manager_park_a_car_to_a_parking_lot_with_enough_space() throws NotEnoughPositionException, UnrecognizedParkingTicketException, NoProvidedTicketException {
         Car car = new Car();
         ParkingLot parkingLot1 = new ParkingLot(0);
         ParkingLot parkingLot2 = new ParkingLot();
@@ -49,7 +47,7 @@ public class ParkingManagerTest {
     }
 
     @Test
-    public void should_manager_query_message_once_the_ticket_is_wrong_when_specify_parking_boy_to_park_car() throws PleaseProvideTickerException, UnrecognizedParkingTicketException {
+    public void should_manager_query_message_once_the_ticket_is_wrong_when_specify_parking_boy_to_park_car() throws NoProvidedTicketException, UnrecognizedParkingTicketException {
         expectedException.expect(UnrecognizedParkingTicketException.class);
         expectedException.expectMessage("Unrecognized parking ticket.");
         ParkingLot parkingLot = new ParkingLot();
@@ -65,7 +63,7 @@ public class ParkingManagerTest {
     }
 
     @Test
-    public void should_manager_query_error_message_for_used_ticket_when_specify_parking_boy_to_park_car() throws NotEnoughPositionException, UnrecognizedParkingTicketException, PleaseProvideTickerException {
+    public void should_manager_query_error_message_for_used_ticket_when_specify_parking_boy_to_park_car() throws NotEnoughPositionException, UnrecognizedParkingTicketException, NoProvidedTicketException {
         expectedException.expect(UnrecognizedParkingTicketException.class);
         expectedException.expectMessage("Unrecognized parking ticket.");
         ParkingLot parkingLot = new ParkingLot();
@@ -80,8 +78,8 @@ public class ParkingManagerTest {
     }
 
     @Test
-    public void should_manager_query_message_once_ticket_is_not_provided_when_specify_parking_boy_to_park_car() throws UnrecognizedParkingTicketException, PleaseProvideTickerException {
-        expectedException.expect(PleaseProvideTickerException.class);
+    public void should_manager_query_message_once_ticket_is_not_provided_when_specify_parking_boy_to_park_car() throws UnrecognizedParkingTicketException, NoProvidedTicketException {
+        expectedException.expect(NoProvidedTicketException.class);
         expectedException.expectMessage("Please provide your parking ticket.");
         ParkingLot parkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots=new ArrayList<>();

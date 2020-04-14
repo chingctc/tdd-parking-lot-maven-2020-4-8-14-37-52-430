@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class SuperSmartParkingBoyTest {
 
     @Test
-    public void should_super_smart_parking_boy_park_cars_to_parking_lot_with_higher_space_ratio() throws NotEnoughPositionException, PleaseProvideTickerException, UnrecognizedParkingTicketException {
+    public void should_super_smart_parking_boy_park_cars_to_parking_lot_with_higher_space_ratio() throws NotEnoughPositionException, NoProvidedTicketException, UnrecognizedParkingTicketException {
         Car car1 = new Car();
         Car car2 = new Car();
         Car car3 = new Car();

@@ -5,12 +5,10 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 public class SmartParkingBoyTest {
 
     @Test
-    public void should_smart_parking_boy_park_cars_to_parking_lot_with_more_space() throws NotEnoughPositionException, PleaseProvideTickerException, UnrecognizedParkingTicketException {
+    public void should_smart_parking_boy_park_cars_to_parking_lot_with_more_space() throws NotEnoughPositionException, NoProvidedTicketException, UnrecognizedParkingTicketException {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLots = new ArrayList<>();
