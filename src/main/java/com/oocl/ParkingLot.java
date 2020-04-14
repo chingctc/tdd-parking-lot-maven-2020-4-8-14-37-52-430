@@ -17,16 +17,16 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public int getAvailableParkingPosition() {
+    public int getAvailableParkingSpace() {
         return capacity - parkingTicketCarMap.size();
     }
 
-    public float getAvailableParkingPositionRate() {
-        return (float) getAvailableParkingPosition() / capacity;
+    public float getAvailableParkingSpaceRate() {
+        return (float) getAvailableParkingSpace() / capacity;
     }
 
     public ParkingTicket park(Car car) throws NotEnoughPositionException {
-        if (getAvailableParkingPosition() == NO_MORE_PARKING_SPACE) {
+        if (getAvailableParkingSpace() == NO_MORE_PARKING_SPACE) {
             throw new NotEnoughPositionException();
         }
         ParkingTicket parkingTicket = new ParkingTicket(this);

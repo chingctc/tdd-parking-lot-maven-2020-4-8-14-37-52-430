@@ -12,9 +12,9 @@ public class SuperSmartParkingBoy extends ParkingBoy {
         ParkingLot availParkingLot = null;
         float availableSpaceRate = 0;
         for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.getAvailableParkingPositionRate() > availableSpaceRate) {
+            if (parkingLot.getAvailableParkingSpaceRate() > availableSpaceRate) {
                 availParkingLot = parkingLot;
-                availableSpaceRate = parkingLot.getAvailableParkingPositionRate();
+                availableSpaceRate = parkingLot.getAvailableParkingSpaceRate();
             }
         }
         return availParkingLot;

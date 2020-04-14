@@ -12,8 +12,8 @@ public class SmartParkingBoy extends ParkingBoy {
         ParkingLot availParkingLot = null;
         int availableSpace = 0;
         for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.getAvailableParkingPosition() > availableSpace) {
-                availableSpace = parkingLot.getAvailableParkingPosition();
+            if (parkingLot.getAvailableParkingSpace() > availableSpace) {
+                availableSpace = parkingLot.getAvailableParkingSpace();
                 availParkingLot = parkingLot;
             }
         }

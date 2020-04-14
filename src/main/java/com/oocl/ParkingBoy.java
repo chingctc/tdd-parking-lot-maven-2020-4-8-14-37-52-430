@@ -13,7 +13,7 @@ public class ParkingBoy {
 
     public ParkingLot getAvailableParkingLot() {
         for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.getAvailableParkingPosition() > NO_MORE_PARKING_SPACE) {
+            if (parkingLot.getAvailableParkingSpace() > NO_MORE_PARKING_SPACE) {
                 return parkingLot;
             }
         }
