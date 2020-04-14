@@ -5,24 +5,33 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 public class SuperSmartParkingBoyTest {
-    
+
     @Test
     public void should_super_smart_parking_boy_park_cars_to_parking_lot_with_higher_space_ratio() throws NotEnoughPositionException, PleaseProvideTickerException, UnrecognizedParkingTicketException {
-        ParkingLot firstParkingLot = new ParkingLot(1);
-        ParkingLot secondParkingLot = new ParkingLot();
-        ArrayList<ParkingLot> parkingLots = new ArrayList<>();
-        parkingLots.add(secondParkingLot);
-        parkingLots.add(firstParkingLot);
-        SuperSmartParkingBoy parkingBoy = new SuperSmartParkingBoy(parkingLots);
         Car car1 = new Car();
+        Car car2 = new Car();
+        Car car3 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(3);
+        ParkingLot parkingLot2 = new ParkingLot(2);
+        ArrayList<ParkingLot> parkingLots=new ArrayList<>();
+        parkingLots.add(parkingLot1);
+        parkingLots.add(parkingLot2);
+        SuperSmartParkingBoy parkingBoy = new SuperSmartParkingBoy(parkingLots);
 
-        ParkingTicket parkingTicket = parkingBoy.park(car1);
-        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+        ParkingTicket parkingTicket1 = parkingBoy.park(car1);
+        ParkingTicket parkingTicket2 = parkingBoy.park(car2);
+        ParkingTicket parkingTicket3 = parkingBoy.park(car3);
+        Car fetchedCar1 = parkingBoy.fetch(parkingTicket1);
+        Car fetchedCar2 = parkingBoy.fetch(parkingTicket2);
+        Car fetchedCar3 = parkingBoy.fetch(parkingTicket3);
 
-        Assert.assertEquals(car1, fetchedCar);
+        Assert.assertEquals(parkingLot1,parkingTicket1.getParkingLot());
+        Assert.assertEquals(parkingLot2,parkingTicket2.getParkingLot());
+        Assert.assertEquals(parkingLot1,parkingTicket3.getParkingLot());
+        Assert.assertEquals(car1,fetchedCar1);
+        Assert.assertEquals(car2,fetchedCar2);
+        Assert.assertEquals(car3,fetchedCar3);
     }
 
 }

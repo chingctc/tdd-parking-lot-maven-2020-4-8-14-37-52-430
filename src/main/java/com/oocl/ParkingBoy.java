@@ -42,9 +42,6 @@ public class ParkingBoy {
             throw new UnrecognizedParkingTicketException();
         }
         Car fetchedCar = parkingLot.fetch(parkingTicket);
-        if (fetchedCar == null) {
-            return null;
-        }
         return fetchedCar;
     }
 
